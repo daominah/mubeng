@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/elazarl/goproxy"
@@ -19,8 +20,21 @@ func (p *Proxy) onRequest(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Reque
 		defer mutex.Unlock()
 	}
 
-	// Rotate proxy IP for every AFTER request
-	if (rotate == "") || (ok >= p.Options.Rotate) {
+	if p.Options.Method == "header" {
+		header := req.Header.Get("X-Proxy-Offset")
+
+		offset, err := strconv.Atoi(header)
+		if err != nil {
+			log.Warnf("%s Unable parse proxy offset '%s': forcing to '%d'", req.RemoteAddr, header, offset)
+		}
+
+		rotate, err = p.Options.ProxyManager.GetProxy(offset)
+		if err != nil {
+			log.Warnf("%s %s: forcing to '%d'", req.RemoteAddr, err.Error(), 0)
+		}
+	} else if (rotate == "") || (ok >= p.Options.Rotate) {
+		// Rotate proxy IP for every AFTER request
+
 		if p.Options.Method == "sequent" {
 			rotate = p.Options.ProxyManager.NextProxy()
 		}

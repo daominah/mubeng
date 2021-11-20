@@ -31,6 +31,7 @@ func validate(opt *common.Options) error {
 	validMethod := map[string]bool{
 		"sequent": true,
 		"random":  true,
+		"header":  true,
 	}
 
 	if opt.Address != "" && !opt.Check {

@@ -27,7 +27,7 @@ Options:
   -c, --check                      To perform proxy live check.
   -t, --timeout                    Max. time allowed for proxy server/check (default: 30s).
   -r, --rotate <AFTER>             Rotate proxy IP for every AFTER request (default: 1).
-  -m, --method <METHOD>            Rotation method (sequent/random) (default: sequent).
+  -m, --method <METHOD>            Rotation method (sequent, random or header) (default: sequent).
   -s, --sync                       Sync will wait for the previous request to complete.
   -v, --verbose                    Dump HTTP request/responses or show died proxy on check.
   -o, --output <FILE>              Log output from proxy server or live check.

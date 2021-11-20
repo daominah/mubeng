@@ -51,6 +51,19 @@ func New(filename string) (*ProxyManager, error) {
 	return manager, scanner.Err()
 }
 
+// GetProxy returns the existing proxy from the list with the selected offset
+func (p *ProxyManager) GetProxy(offset int) (string, error) {
+	var err error
+
+	length := len(p.Proxies) - 1
+	if offset > length || offset < 0 {
+		err = fmt.Errorf("Out of range proxy offset '%d' with length '%d'", offset, length)
+		offset = 0
+	}
+
+	return p.Proxies[offset], err
+}
+
 // NextProxy will navigate the next proxy to use
 func (p *ProxyManager) NextProxy() string {
 	p.CurrentIndex++
@@ -58,12 +71,12 @@ func (p *ProxyManager) NextProxy() string {
 		p.CurrentIndex = 0
 	}
 
-	proxy := p.Proxies[p.CurrentIndex]
-
+	proxy, _ := p.GetProxy(p.CurrentIndex)
 	return proxy
 }
 
 // RandomProxy will choose a proxy randomly from the list
 func (p *ProxyManager) RandomProxy() string {
-	return p.Proxies[rand.Intn(len(p.Proxies))]
+	proxy, _ := p.GetProxy(rand.Intn(len(p.Proxies) - 1))
+	return proxy
 }
