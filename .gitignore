@@ -3,3 +3,5 @@ dist/*
 *.txt
 *.crt
 *.key
+.idea
+proxiescom_proxies.txt

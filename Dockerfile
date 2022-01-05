@@ -18,4 +18,7 @@ FROM alpine:latest
 
 COPY --from=build /app/bin/mubeng /bin/mubeng
 ENV HOME /
-ENTRYPOINT ["/bin/mubeng"]
+COPY ./proxies.txt /proxies.txt
+
+EXPOSE 23528
+CMD ["/bin/mubeng", "-a", ":23528", "-f", "/proxies.txt"]
