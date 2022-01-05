@@ -5,4 +5,5 @@ export dockerCtnName=cascade_proxy_mubeng
 
 docker build --tag=${dockerImgTag} .
 docker rm -f ${dockerCtnName}
-docker run -dit --name=${dockerCtnName} --network=host ${dockerImgTag}
+docker run -dit --name=${dockerCtnName} --restart=always \
+    --network=host ${dockerImgTag}
