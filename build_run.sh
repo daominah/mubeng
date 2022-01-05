@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-export dockerImgTag=rotator_mubeng
-export dockerCtnName=rotator_mubeng
+export dockerImgTag=cascade_proxy_mubeng
+export dockerCtnName=cascade_proxy_mubeng
 
 docker build --tag=${dockerImgTag} .
 docker rm -f ${dockerCtnName}
