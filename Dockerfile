@@ -21,4 +21,4 @@ ENV HOME /
 COPY ./proxies.txt /proxies.txt
 
 EXPOSE 23528
-CMD ["/bin/mubeng", "-a", ":23528", "-f", "/proxies.txt"]
+CMD ["/bin/mubeng", "-a", "127.0.0.1:23528", "-f", "/proxies.txt"]
