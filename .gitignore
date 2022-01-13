@@ -4,4 +4,4 @@ dist/*
 *.crt
 *.key
 .idea
-proxiescom_proxies.txt
+proxies*.txt
